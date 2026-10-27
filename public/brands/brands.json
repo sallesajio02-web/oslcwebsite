@@ -1,0 +1,56 @@
+[
+  {
+    "id": "lariya-fashion",
+    "name": "Lariya Fashion",
+    "logo": "/brands/lariya-fashion.svg",
+    "placeholder": true,
+    "href": "",
+    "image": "/demo/photos/womenswear.webp",
+    "imageAlt": "Illustrative stock fashion photograph for Lariya Fashion layout preview; not a verified brand product"
+  },
+  {
+    "id": "lumora",
+    "name": "Lumora",
+    "logo": "/brands/lumora.svg",
+    "placeholder": true,
+    "href": "",
+    "image": "/demo/photos/fabric.webp",
+    "imageAlt": "Illustrative stock fashion photograph for Lumora layout preview; not a verified brand product"
+  },
+  {
+    "id": "genzylooks",
+    "name": "GenzyLooks",
+    "logo": "/brands/genzylooks.svg",
+    "placeholder": true,
+    "href": "",
+    "image": "/demo/photos/collection.webp",
+    "imageAlt": "Illustrative stock fashion photograph for GenzyLooks layout preview; not a verified brand product"
+  },
+  {
+    "id": "grecilook",
+    "name": "GreciLook",
+    "logo": "/brands/grecilook.svg",
+    "placeholder": true,
+    "href": "",
+    "image": "/demo/photos/menswear.webp",
+    "imageAlt": "Illustrative stock fashion photograph for GreciLook layout preview; not a verified brand product"
+  },
+  {
+    "id": "nivo",
+    "name": "Nivo",
+    "logo": "/brands/nivo.svg",
+    "placeholder": true,
+    "href": "",
+    "image": "/demo/photos/shirts.webp",
+    "imageAlt": "Illustrative stock fashion photograph for Nivo layout preview; not a verified brand product"
+  },
+  {
+    "id": "larisha",
+    "name": "Larisha",
+    "logo": "/brands/larisha.svg",
+    "placeholder": true,
+    "href": "",
+    "image": "/demo/photos/kidswear.webp",
+    "imageAlt": "Illustrative stock fashion photograph for Larisha layout preview; not a verified brand product"
+  }
+]

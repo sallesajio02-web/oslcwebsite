@@ -1,0 +1,565 @@
+/* Small, bounded art-directed effects. Decorations never receive pointer input. */
+.ambient-zone {
+  position: relative;
+  pointer-events: none;
+  user-select: none;
+  contain: layout paint;
+}
+.ambient-zone *,
+.ambient-zone *::before,
+.ambient-zone *::after {
+  pointer-events: none !important;
+}
+.ambient-zone:not(.effects-active) *,
+.ambient-zone:not(.effects-active) *::before,
+.ambient-zone:not(.effects-active) *::after {
+  animation-play-state: paused !important;
+}
+.effects-static *,
+.effects-static *::before,
+.effects-static *::after {
+  animation: none !important;
+}
+.creative-scene {
+  overflow: hidden;
+}
+.fabric-wave {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: var(--effect-size, 100px);
+  opacity: var(--effect-intensity, 0.65);
+}
+.fabric-wave > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.fabric-ribbon {
+  transform-origin: center;
+  animation: silk-drift var(--effect-cycle, 16s) ease-in-out infinite alternate;
+}
+.ribbon-two {
+  animation-delay: -5s;
+  animation-direction: alternate-reverse;
+  opacity: 0.65;
+}
+.fabric-thread {
+  stroke-dasharray: 1700;
+  stroke-dashoffset: 0;
+  animation: thread-breathe var(--effect-cycle, 14s) ease-in-out infinite
+    alternate;
+}
+.effects-seen .fabric-thread {
+  animation:
+    thread-draw 1800ms ease-out both,
+    thread-breathe var(--effect-cycle, 14s) ease-in-out 1800ms infinite
+      alternate;
+}
+.ribbon-one {
+  animation:
+    silk-drift var(--effect-cycle, 16s) ease-in-out infinite alternate,
+    silk-morph calc(var(--effect-cycle, 16s) * 1.2) ease-in-out infinite
+      alternate;
+}
+.section-transition {
+  height: var(--effect-size, 76px);
+  width: 100%;
+  overflow: hidden;
+  background: #fafaf7;
+}
+.section-transition .fabric-wave {
+  height: 100%;
+}
+.transition-stitch {
+  background: transparent;
+}
+.transition-stitch > svg {
+  display: block;
+  width: min(1240px, 88%);
+  height: 100%;
+  margin: auto;
+}
+.stitch-draw {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 0;
+}
+.effects-seen .stitch-draw {
+  animation: thread-draw 1600ms ease-out both;
+}
+.effects-seen .stitch-draw.secondary {
+  animation-delay: 160ms;
+}
+.flower-bloom {
+  display: block;
+  width: var(--effect-size, 96px);
+  height: var(--effect-size, 96px);
+  flex-shrink: 0;
+  opacity: var(--effect-intensity, 0.65);
+}
+.flower-bloom > svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.flower-sway {
+  transform-origin: 50% 90%;
+  animation: floral-sway var(--effect-cycle, 12s) ease-in-out infinite alternate;
+}
+.flower-petal {
+  transform-origin: 0 0;
+  animation: petal-unfold 1700ms cubic-bezier(0.18, 0.72, 0.22, 1)
+    var(--petal-delay, 0s) both;
+}
+.flower-petal.inner {
+  animation-duration: 2000ms;
+}
+.flower-heart {
+  animation: bloom-heart 1500ms ease-out both;
+}
+.floating-petals,
+.particle-field {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  opacity: var(--effect-intensity, 0.65);
+}
+.floating-petal {
+  position: absolute;
+  width: var(--effect-size, 13px);
+  height: calc(var(--effect-size, 13px) * 1.5);
+  left: var(--petal-x, 15%);
+  top: var(--petal-y, 10%);
+  border-radius: 90% 15% 85% 25%;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    #fffef9,
+    #ded1bb 70%,
+    #c2b29c
+  );
+  animation: petal-drift 15s ease-in-out infinite;
+  opacity: 0;
+}
+.ambient-particle {
+  position: absolute;
+  display: block;
+  width: var(--effect-size, 4px);
+  height: var(--effect-size, 4px);
+  border-radius: 50%;
+  background: #9b9d98;
+  animation: particle-drift 11s ease-in-out infinite;
+}
+.ambient-particle:nth-child(3n) {
+  background: #c1ae89;
+}
+.particle-field.playful .ambient-particle {
+  background: #c9c9bd;
+  border: 1px solid #b2baaf;
+}
+.particle-field.playful .ambient-particle:nth-child(even) {
+  border-radius: 35%;
+  background: #ddd3be;
+}
+.hero {
+  position: relative;
+  isolation: isolate;
+}
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+.hero-visual {
+  z-index: 1;
+}
+.hero-ambient {
+  position: absolute;
+  inset: 0 50% 0 0;
+  z-index: 0;
+}
+.hero-fabric-texture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.035;
+  transform: scale(1.035);
+  animation: texture-flow calc(var(--effect-cycle, 16s) * 1.3) ease-in-out
+    infinite alternate;
+  mask-image: linear-gradient(90deg, #0007, transparent 90%);
+}
+.hero-ambient > .fabric-wave {
+  position: absolute;
+  inset: auto 0 0;
+  height: 110px;
+}
+.hero-ambient > .particle-field {
+  inset: auto 0 0;
+  height: 50px;
+  opacity: 0.35;
+}
+.hero-departments {
+  display: flex;
+  gap: 25px;
+  margin: 4px 0 12px;
+  flex-wrap: wrap;
+}
+.hero-departments a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border-bottom: 1px solid #bbc3ca;
+  padding-bottom: 7px;
+  font-size: 14px;
+  animation: department-enter 500ms var(--motion-ease) 160ms both;
+}
+.hero-departments a:nth-child(2) {
+  animation-delay: 210ms;
+}
+.hero-departments a:nth-child(3) {
+  animation-delay: 260ms;
+}
+.hero-departments a:focus-visible {
+  animation: none;
+}
+.hero-departments a svg {
+  transition: transform 220ms ease;
+}
+.hero-departments a:hover svg {
+  transform: translate(2px, -2px);
+}
+.header .wordmark {
+  animation: logo-arrive 500ms ease-out both;
+}
+.hero-copy h1 {
+  animation: none;
+}
+.word-mask {
+  display: inline-block;
+  overflow: clip;
+  vertical-align: bottom;
+  padding-bottom: 0.05em;
+  margin-bottom: -0.05em;
+}
+.reveal-word {
+  display: inline-block;
+}
+.text-reveal-load .reveal-word,
+.is-revealed .section-heading .reveal-word,
+.section-heading.is-revealed .reveal-word {
+  animation: word-arrive var(--word-duration, 650ms) var(--motion-ease)
+    var(--word-delay, 0ms) both;
+}
+.reveal-readable {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.department-accent {
+  height: 76px;
+  width: 100%;
+  margin-top: 8px;
+}
+.department-accent .fabric-wave {
+  height: 70px;
+}
+.creative-women.department-accent {
+  overflow: hidden;
+}
+.department-accent .flower-bloom {
+  position: absolute;
+  right: 6px;
+  top: -4px;
+}
+.department-accent .floating-petals {
+  left: 15%;
+  right: 15%;
+}
+.department-accent .particle-field {
+  inset: 10px 20px;
+}
+.collection-men.is-revealed .collection-visual {
+  animation: masculine-mask 800ms var(--motion-ease) both;
+}
+.collection-women.is-revealed .collection-visual {
+  animation: graceful-mask 900ms var(--motion-ease) both;
+}
+.collection-kids.is-revealed .collection-visual {
+  animation: gentle-mask 700ms var(--motion-ease) both;
+}
+.banner {
+  position: relative;
+  isolation: isolate;
+}
+.banner > .container {
+  position: relative;
+  z-index: 1;
+  padding-right: 190px;
+}
+.banner-bloom {
+  position: absolute;
+  right: 6%;
+  bottom: 25px;
+  width: 180px;
+  height: 190px;
+  z-index: 0;
+}
+.banner-bloom .flower-bloom {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.banner-bloom .floating-petals {
+  inset: 0 12px;
+}
+.banner-bloom .flower-stem {
+  fill: #7e9585;
+  stroke: #8da08b;
+}
+.loading > span::after {
+  content: "";
+  display: inline-block;
+  width: 25px;
+  height: 1px;
+  margin-left: 12px;
+  vertical-align: middle;
+  background: #687386;
+  animation: loading-thread 1200ms ease-in-out infinite;
+}
+@media (max-width: 700px) {
+  .hero-ambient {
+    right: 0;
+    bottom: 330px;
+  }
+  .hero-ambient .hero-fabric-texture {
+    opacity: 0.025;
+  }
+  .ambient-particle:nth-child(n + 5),
+  .floating-petal:nth-child(n + 3) {
+    display: none;
+  }
+  .department-accent {
+    height: 64px;
+  }
+  .department-accent .flower-bloom {
+    width: 72px;
+    height: 72px;
+  }
+  .banner-bloom {
+    display: none;
+  }
+  .banner > .container {
+    padding-right: 0;
+  }
+  .hero-departments {
+    gap: 22px;
+  }
+  .hero .section-transition {
+    height: 50px;
+  }
+}
+@keyframes petal-unfold {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.12, 0.45) rotate(18deg);
+  }
+  45% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+@keyframes bloom-heart {
+  from {
+    transform: scale(0.25);
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes floral-sway {
+  from {
+    transform: rotate(-2deg);
+  }
+  to {
+    transform: rotate(2deg);
+  }
+}
+@keyframes petal-drift {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) rotate(-15deg);
+  }
+  20% {
+    opacity: 0.7;
+  }
+  75% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift, 20px), 105px) rotate(80deg);
+  }
+}
+@keyframes particle-drift {
+  0%,
+  100% {
+    opacity: 0.05;
+    transform: translate(0, 5px) scale(0.8);
+  }
+  50% {
+    opacity: 0.55;
+    transform: translate(var(--drift, 14px), -13px) scale(1);
+  }
+}
+@keyframes silk-drift {
+  from {
+    transform: translate(-12px, 3px) scaleY(0.94);
+  }
+  to {
+    transform: translate(12px, -4px) scaleY(1.04);
+  }
+}
+@keyframes silk-morph {
+  from {
+    d: path(
+      "M-60 87 C180 8 290 166 550 86 S1020 8 1500 89 L1500 140 C1120 63 970 181 710 129 S170 66 -60 138Z"
+    );
+  }
+  to {
+    d: path(
+      "M-60 94 C180 25 290 146 550 77 S1020 27 1500 96 L1500 147 C1120 75 970 165 710 119 S170 78 -60 145Z"
+    );
+  }
+}
+@keyframes thread-breathe {
+  from {
+    opacity: 0.35;
+    transform: translateY(2px);
+  }
+  to {
+    opacity: 0.8;
+    transform: translateY(-3px);
+  }
+}
+@keyframes thread-draw {
+  from {
+    stroke-dashoffset: 1700;
+    opacity: 0.1;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes texture-flow {
+  from {
+    transform: translate(-4px, 3px) scale(1.035);
+  }
+  to {
+    transform: translate(4px, -3px) scale(1.04);
+  }
+}
+@keyframes word-arrive {
+  from {
+    opacity: 0.35;
+    transform: translateY(80%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes department-enter {
+  from {
+    opacity: 0.35;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes logo-arrive {
+  from {
+    opacity: 0.55;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes masculine-mask {
+  from {
+    clip-path: inset(0 0 0 80%);
+  }
+  to {
+    clip-path: inset(0);
+  }
+}
+@keyframes graceful-mask {
+  from {
+    clip-path: inset(15% 5% 40% 5% round 35% 35% 0 0);
+  }
+  to {
+    clip-path: inset(0 round 0);
+  }
+}
+@keyframes gentle-mask {
+  from {
+    clip-path: inset(8% 0 8% 0 round 18px);
+  }
+  to {
+    clip-path: inset(0 round 0);
+  }
+}
+@keyframes loading-thread {
+  0%,
+  100% {
+    transform: scaleX(0.35);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ambient-zone *,
+  .hero-departments *,
+  .header .wordmark,
+  .reveal-word,
+  .collection-visual,
+  .loading > span::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .floating-petals,
+  .particle-field,
+  .hero-fabric-texture {
+    display: none !important;
+  }
+  .flower-petal,
+  .flower-heart {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .reveal-word {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .collection-visual {
+    clip-path: none !important;
+  }
+}

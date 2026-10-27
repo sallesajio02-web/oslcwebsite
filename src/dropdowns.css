@@ -1,0 +1,126 @@
+/* Shared dropdown treatment for public forms, filters, and administration. */
+select:not([multiple]):not([size]) {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  border: 1px solid #cbd3dd;
+  border-radius: 8px;
+  padding: 13px 46px 13px 16px;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23142B4A' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 18px;
+  color: var(--navy);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: start;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  box-shadow: 0 1px 2px #142b4a05;
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+select:not([multiple]):not([size]):hover:not(:disabled) {
+  border-color: #8193a9;
+  background-color: #fbfcfd;
+}
+select:not([multiple]):not([size]):focus-visible {
+  border-color: var(--navy);
+  outline: 3px solid #a9bdd5;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 1px var(--navy);
+}
+select:disabled {
+  cursor: not-allowed;
+  opacity: .65;
+  background-color: #f0f2f5;
+  color: #687386;
+}
+select[aria-invalid="true"] {
+  border-color: #a54049;
+}
+select option {
+  background: #fff;
+  color: #142b4a;
+  font-size: 16px;
+  font-weight: 400;
+}
+select option:disabled { color: #687386; }
+select optgroup { font-weight: 600; color: #142b4a; }
+/* Native mobile pickers retain the platform's touch and keyboard behavior. */
+@supports (appearance: base-select) {
+  @media (hover: hover) and (pointer: fine) {
+    select:not([multiple]):not([size]),
+    select:not([multiple]):not([size])::picker(select) {
+      appearance: base-select;
+    }
+    select:not([multiple]):not([size])::picker-icon { display: none; }
+    select:not([multiple]):not([size])::picker(select) {
+      margin-block: 7px;
+      max-block-size: min(340px, 60dvh);
+      max-inline-size: calc(100vw - 24px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      border: 1px solid #d9e0e9;
+      border-radius: 10px;
+      padding: 6px;
+      background: #fff;
+      color: #142b4a;
+      box-shadow: 0 12px 36px #142b4a1f, 0 2px 6px #142b4a0a;
+      scrollbar-width: thin;
+      scrollbar-color: #a9b6c6 transparent;
+    }
+    select:not([multiple]):not([size]) option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 42px;
+      padding: 10px 12px;
+      border: 0;
+      border-radius: 6px;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      line-height: 1.45;
+    }
+    select:not([multiple]):not([size]) option + option { margin-block-start: 2px; }
+    select:not([multiple]):not([size]) option:hover:not(:disabled),
+    select:not([multiple]):not([size]) option:focus-visible {
+      background: #edf2f7;
+      color: #142b4a;
+      outline: 2px solid #a9bdd5;
+      outline-offset: -2px;
+    }
+    select:not([multiple]):not([size]) option:checked {
+      background: #142b4a;
+      color: #fff;
+      font-weight: 500;
+    }
+    select:not([multiple]):not([size]) option::checkmark {
+      order: 1;
+      margin-inline-start: auto;
+      flex-shrink: 0;
+    }
+    select optgroup { padding: 6px 4px; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  select:not([multiple]):not([size]) { transition: none; }
+}
+@media (forced-colors: active) {
+  select:not([multiple]):not([size]) {
+    appearance: auto;
+    -webkit-appearance: auto;
+    background-image: none;
+    border-color: ButtonText;
+    box-shadow: none;
+  }
+  select:not([multiple]):not([size])::picker(select) { appearance: auto; }
+  select:not([multiple]):not([size])::picker-icon { display: block; }
+}

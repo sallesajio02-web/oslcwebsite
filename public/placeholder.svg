@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="700" viewBox="0 0 900 700">
+  <rect width="900" height="700" fill="#eee9e1"/>
+  <circle cx="450" cy="300" r="110" fill="#e0d7ca"/>
+  <g fill="none" stroke="#8d7960" stroke-width="7" stroke-linejoin="round">
+    <rect x="370" y="242" width="160" height="120" rx="12"/>
+    <circle cx="416" cy="278" r="13"/>
+    <path d="m375 345 45-43 31 28 35-42 40 57"/>
+  </g>
+  <text x="450" y="475" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" fill="#574a3a">IMAGE PLACEHOLDER</text>
+  <text x="450" y="518" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#786b5c">Sample visual · photo coming soon</text>
+</svg>

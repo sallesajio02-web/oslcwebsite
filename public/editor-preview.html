@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' data: blob:; style-src 'unsafe-inline' data: blob:; img-src data: blob:; font-src data: blob:; media-src data: blob:; connect-src 'none'; frame-src 'none'; object-src 'none'; form-action 'none'; base-uri 'none'"><title>Isolated HTML preview</title></head><body><script>
+// The iframe has no allow-same-origin permission. Receive content only from its parent.
+function loadDocument(event) {
+  if (event.source !== parent || event.data?.kind !== "html-studio-load" || typeof event.data.html !== "string") return;
+  window.removeEventListener("message", loadDocument);
+  document.open();
+  document.write(event.data.html);
+  document.close();
+}
+window.addEventListener("message", loadDocument);
+</script></body></html>
