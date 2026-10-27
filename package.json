@@ -14,13 +14,16 @@
     "seed:demo": "tsx server/manage.ts seed",
     "test": "tsx --test tests/*.test.ts tests/*.test.tsx",
     "test:editor": "node scripts/test-editor-browser.mjs && node scripts/test-editor-interactions.mjs",
-    "db:local": "node scripts/local-db.mjs"
+    "db:local": "node scripts/local-db.mjs",
+    "build:api": "esbuild server/vercel.ts --bundle --platform=node --packages=external --format=esm --outfile=api/index.js",
+    "build:vercel": "tsc --noEmit && vite build && npm run build:api"
   },
   "dependencies": {
     "@codemirror/lang-css": "^6.3.1",
     "@codemirror/lang-html": "^6.4.12",
     "@codemirror/lang-javascript": "^6.2.5",
     "@tailwindcss/vite": "^4.1.0",
+    "@vercel/blob": "^2.8.2",
     "bcryptjs": "^3.0.2",
     "codemirror": "^6.0.2",
     "connect-pg-simple": "^10.0.0",
