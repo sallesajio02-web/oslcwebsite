@@ -37,7 +37,7 @@ declare module "express-session" {
 const PgStore = connectPg(session);
 export const app = express();
 const production = process.env.NODE_ENV === "production";
-const siteUrl = (process.env.SITE_URL || "http://localhost:5173").replace(
+const siteUrl = (process.env.SITE_URL || "https://oslcwebsite.vercel.app").replace(
   /\/$/,
   "",
 );

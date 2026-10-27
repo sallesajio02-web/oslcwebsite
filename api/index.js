@@ -764,7 +764,7 @@ var pageDescriptions = {
 var PgStore = connectPg(session);
 var app = express();
 var production = process.env.NODE_ENV === "production";
-var siteUrl = (process.env.SITE_URL || "http://localhost:5173").replace(
+var siteUrl = (process.env.SITE_URL || "https://oslcwebsite.vercel.app").replace(
   /\/$/,
   ""
 );
