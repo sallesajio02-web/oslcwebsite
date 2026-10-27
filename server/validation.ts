@@ -107,7 +107,7 @@ export const categorySchema = z.object({
   position: z.number().int(),
   published: z.boolean(),
 });
-export const capabilitySchema = z.object({
+const capabilityBaseSchema = z.object({
   operation: z
     .enum(["In-house", "Managed externally", "To be confirmed"])
     .default("To be confirmed"),
@@ -116,6 +116,9 @@ export const capabilitySchema = z.object({
   image: imageUrl,
   position: z.number().int(),
   published: z.boolean(),
+});
+export const capabilitySchema = capabilityBaseSchema.extend({
+  images: z.array(imageUrl).max(12).default([]),
 });
 export const leadershipSchema = z.object({
   name: required(200),
@@ -138,14 +141,14 @@ export const leadershipSchema = z.object({
   position: z.number().int(),
   published: z.boolean(),
 });
-export const eventSchema = capabilitySchema.omit({ operation: true }).extend({
+export const eventSchema = capabilityBaseSchema.omit({ operation: true }).extend({
   date: z.iso.date(),
   category: required(100),
 });
-export const employeeSchema = capabilitySchema
+export const employeeSchema = capabilityBaseSchema
   .omit({ operation: true })
   .extend({ role: required(200) });
-export const gallerySchema = capabilitySchema.omit({ operation: true }).extend({
+export const gallerySchema = capabilityBaseSchema.omit({ operation: true }).extend({
   image: imageUrl.refine((v) => !!v),
   category: z.enum([
     ...galleryCategories,

@@ -971,10 +971,12 @@ function Collection({ kind }: { kind: Kind }) {
               </label>
             )}
             <ImageEditor
-              multiple={kind === "products"}
+              multiple={kind === "products" || kind === "capabilities"}
               images={
                 kind === "products"
                   ? edit.images
+                  : kind === "capabilities" && edit.images?.length
+                    ? edit.images.map((url: string, position: number) => ({ url, alt: edit.name, position }))
                   : edit.image
                     ? [{ url: edit.image, alt: edit.name, position: 0 }]
                     : []
@@ -982,6 +984,8 @@ function Collection({ kind }: { kind: Kind }) {
               onChange={(images) =>
                 kind === "products"
                   ? field("images", images)
+                  : kind === "capabilities"
+                    ? setEdit((old: any) => ({ ...old, image: images[0]?.url || "", images: images.map(im => im.url) }))
                   : field("image", images[0]?.url || "")
               }
             />

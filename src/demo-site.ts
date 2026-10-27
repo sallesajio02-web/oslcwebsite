@@ -19,6 +19,14 @@ const capabilityPhotos = [
   "inspection",
   "packing",
 ];
+const capabilitySlides = [
+  ["fabric", "collection", "workspace"],
+  ["cutting", "inspection"],
+  ["stitching", "workspace"],
+  ["finishing", "shirts", "mens-shirts"],
+  ["inspection", "trousers", "chinos"],
+  ["packing", "collection"],
+];
 const descriptions = [
   "Sample workflow: review fabric requirements, organize materials and prepare for production. Actual materials and processes require company confirmation.",
   "Sample workflow: translate an approved garment brief into patterns and cutting plans, with attention to fit and material use.",
@@ -32,6 +40,7 @@ const capabilities: Entry[] = capabilityNames.map((name, i) => ({
   name: `${name} - Sample`,
   description: descriptions[i],
   image: photo(capabilityPhotos[i]),
+  images: capabilitySlides[i].map(photo),
   position: i,
   published: false,
   operation: "To be confirmed",

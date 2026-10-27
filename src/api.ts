@@ -68,6 +68,7 @@ export interface Product {
   demo: boolean;
 }
 export interface Entry {
+  images?: string[];
   operation?: "In-house" | "Managed externally" | "To be confirmed";
   id: string;
   name: string;

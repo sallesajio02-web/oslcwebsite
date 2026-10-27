@@ -1,3 +1,4 @@
+import { CapabilityImages } from "./capability-images";
 import { SiteImage } from "./site-image";
 import { FooterSocials } from "./social-icons";
 import { BrandLoading } from "./loading";
@@ -166,8 +167,10 @@ export function PublicSite() {
                 <>
                   <Meta title="Our Capabilities" />
                   <PageHead
+                    fullWidth
                     label="OUR CAPABILITIES"
                     title="Apparel for every generation."
+                    description="Explore apparel for men, women and kids, with thoughtful attention to fabric, fit and finish at every stage of the manufacturing journey."
                   />
                   <Segments />
                   <section className="container section">
@@ -354,13 +357,15 @@ export function PageHead({
   label,
   title,
   description,
+  fullWidth = false,
 }: {
   label: string;
   title: string;
   description?: string;
+  fullWidth?: boolean;
 }) {
   return (
-    <section className="page-head container">
+    <section className={`page-head container${fullWidth ? " page-head-full-width" : ""}`}>
       <p className="eyebrow">{label}</p>
       <h1>{title}</h1>
       {description && <p className="lead">{description}</p>}
@@ -448,18 +453,32 @@ function About() {
 export function Capabilities() {
   const s = useSite();
   return s.capabilities.length ? (
-    <div className="card-grid">
+    <section aria-labelledby="capabilities-heading">
+      <header className="capabilities-intro">
+        <h2 id="capabilities-heading">From Fabric to Finished Garment</h2>
+        <p>Explore each stage of our apparel manufacturing process, from fabric preparation to final packaging.</p>
+      </header>
+    <div className="capabilities-grid">
       {s.capabilities.map((c) => (
-        <article key={c.id} className="capability">
-          <SiteImage src={c.image} alt={c.name} loading="lazy" />
-          <p className="eyebrow">
-            {c.operation || "Operation location to be confirmed"}
-          </p>
-          <h3>{c.name}</h3>
-          <p className="preserve">{c.description}</p>
+        <article key={c.id} className="capability capability-card">
+          <div className="capability-card-media">
+            <CapabilityImages key={[c.image, ...(c.images || [])].join("|")} name={c.name} image={c.image} images={c.images} />
+            <span className="capability-operation">
+              <span aria-hidden="true" />
+              {c.operation || "Operation location to be confirmed"}
+            </span>
+          </div>
+          <div className="capability-card-body">
+            <h3>{c.name}</h3>
+            <p className="preserve">{c.description}</p>
+            <Link to="/contact" className="capability-card-link" aria-label={`Discuss ${c.name}`}>
+              Discuss your requirements <ArrowUpRight size={18} aria-hidden="true" />
+            </Link>
+          </div>
         </article>
       ))}
     </div>
+    </section>
   ) : (
     <div className="empty">
       <h3>A considered approach to apparel.</h3>
