@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "editor": "vite --host 127.0.0.1 --open /editor",
     "dev": "concurrently -k \"tsx watch server/index.ts\" \"vite\"",

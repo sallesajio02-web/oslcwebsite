@@ -1,5 +1,7 @@
 # OSLC House website
 
+For GitHub-based Vercel deployment, follow [DEPLOY-VERCEL.md](DEPLOY-VERCEL.md). The live application requires cloud PostgreSQL and production environment variables.
+
 The visual HTML editor is available at `/editor`. See [HTML-STUDIO.md](HTML-STUDIO.md) for import, visual editing, source synchronization, export and testing instructions.
 
 React + TypeScript + Vite + Tailwind CSS public website, Express REST API, PostgreSQL persistence, and protected administration at `/admin`. This is a B2B catalogue; it has no checkout or payment gateway.
