@@ -736,10 +736,9 @@ import { rateLimit as rateLimit2 } from "express-rate-limit";
 import bcrypt from "bcryptjs";
 import { randomBytes, randomUUID as randomUUID2, timingSafeEqual } from "node:crypto";
 import path from "node:path";
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import multer2 from "multer";
 import sharp from "sharp";
-import { put } from "@vercel/blob";
 import nodemailer2 from "nodemailer";
 import { z as z3, ZodError } from "zod";
 
@@ -1329,26 +1328,24 @@ app.post("/api/admin/uploads", upload2.array("images", 8), async (req, res) => {
       return { bytes, id: randomUUID2() };
     })
   );
-  const urls = process.env.BLOB_READ_WRITE_TOKEN ? await Promise.all(
-    converted.map(
-      async (f) => (await put("uploads/" + f.id + ".webp", f.bytes, {
-        access: "public",
-        contentType: "image/webp"
-      })).url
-    )
-  ) : await (async () => {
-    await mkdir(uploads, { recursive: true });
-    for (const item of converted)
-      await writeFile(path.join(uploads, item.id + ".webp"), item.bytes);
-    return converted.map((f) => "/uploads/" + f.id + ".webp");
-  })();
+  for (const item of converted)
+    await query("INSERT INTO images(id,data) VALUES($1,$2)", [
+      item.id,
+      item.bytes
+    ]);
   res.status(201).json(
-    urls.map((url) => ({
-      url,
+    converted.map((f) => ({
+      url: "/uploads/" + f.id + ".webp",
       alt: "",
       position: 0
     }))
   );
+});
+app.get("/uploads/:id.webp", async (req, res, next) => {
+  if (!/^[a-f0-9-]{36}$/.test(req.params.id)) return next();
+  const r = await query("SELECT data FROM images WHERE id=$1", [req.params.id]);
+  if (!r.rows[0]) return next();
+  res.set("Cache-Control", "public, max-age=31536000, immutable").type("image/webp").send(r.rows[0].data);
 });
 app.use(
   "/uploads",

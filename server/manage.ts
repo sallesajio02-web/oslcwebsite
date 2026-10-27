@@ -1,5 +1,6 @@
 import { pool, query } from "./db.js";
 import { readdir, readFile } from "node:fs/promises";
+import path from "node:path";
 import bcrypt from "bcryptjs";
 import { createInterface } from "node:readline/promises";
 async function run() {
@@ -16,6 +17,15 @@ async function run() {
     console.log(
       `Deleted ${r.rowCount} expired applications and their resumes/history under the ${days}-day retention policy.`,
     );
+  } else if (command === "import-uploads") {
+    const dir = path.resolve(process.env.UPLOAD_DIR || "./uploads");
+    for (const f of (await readdir(dir)).filter((n) => /^[a-f0-9-]{36}.webp$/.test(n))) {
+      const r = await pool.query(
+        "INSERT INTO images(id,data) VALUES($1,$2) ON CONFLICT DO NOTHING",
+        [f.slice(0, -5), await readFile(path.join(dir, f))],
+      );
+      console.log((r.rowCount ? "Imported " : "Already present ") + f);
+    }
   } else if (command === "migrate") {
     const c = await pool.connect();
     try {
@@ -110,7 +120,7 @@ async function run() {
       [c.rows[0].id],
     );
     console.log("Demonstration data created as unpublished drafts.");
-  } else throw new Error("Use migrate, admin or seed");
+  } else throw new Error("Use migrate, admin, seed or import-uploads");
 }
 run()
   .catch((e) => {
